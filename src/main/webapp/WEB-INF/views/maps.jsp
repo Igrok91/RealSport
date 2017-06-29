@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/searchBox.css">
     <script src="resources/js/searchBox.js"></script>
+    <script src="resources/js/infoWindow.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
@@ -56,11 +57,6 @@
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container ">
         <div class="navbar-header " >
-            <button type="button" class="navbar-toggle " data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             <a class="navbar-brand" href="#">SportMap</a>
         </div>
 <%--        <div class="collapse navbar-collapse navbar-right" id="myNavbar">
@@ -140,7 +136,13 @@
                 var basketMarkers;
                 var voleyMarkers;
 
+                var footLocations = ${footLocation};
+                var basketLocation = ${basketLocation};
+                var voleyLocation = ${voleyLocation};
+
                 var footInfo = ${footInfo};
+                var basketInfo = ${basketInfo};
+                var voleyballInfo = ${voleyballInfo};
 
                 function initMap() {
                     var map = new google.maps.Map(document.getElementById('map'), {
@@ -152,52 +154,7 @@
                     initAutocomplete(map);
 
 
-                    var contentString = '<div id="content">'+
-                        '<div id="siteNotice">'+
-                        '</div>'+
-                        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-                        '<div id="bodyContent">'+
-                        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-                        'sandstone rock formation in the southern part of the '+
-                        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-                        'south west of the nearest large town, Alice Springs; 450&#160;km '+
-                        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-                        'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-                        'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-                        'Aboriginal people of the area. It has many springs, waterholes, '+
-                        'rock caves and ancient paintings. Uluru is listed as a World '+
-                        'Heritage Site.</p>'+
-                        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-                        'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-                        '(last visited June 22, 2009).</p>'+
-                        '</div>'+
-                        '</div>';
 
-
-
-                    function getInfoWindowContent(index ){
-                        var contentStr = '<div id="content">'+
-                            '<div id="siteNotice">'+
-                                '<img src="" alt="image"> ' +
-                            '<h5 id="firstHeading" class="firstHeading">' + footInfo[index].namePlayground + '</h5>'+
-                            '<div id="bodyContent">'+
-                            '<p> </p>'+
-                            '<p> <a href="${footInfo[index].link}" class="btn btn-primary" id="football" role="button">'+
-                            'Перейти в группу</a> '+
-                            '</p>'+
-                            '</div>';
-                        var image ='resources/image/.ball.png';
-                        var coString = '<div>' +
-                            '<img src=" ' + image +'" alt="image"> <hr>' +
-                            '<h4>' + footInfo[index].namePlayground + '</h4> ' +
-                            '<div class="btn-group ">' +
-                            ' <a href="  ' + footInfo[index].link +'"  class="btn btn-primary" id="football" role="button" >' +
-                            'Перейти в группу' + ' </a>' +
-                        '</div>' +
-                        '</div>';
-
-                            return coString;
-                    }
                    // alert(footInfo[index].link);
                     // Try HTML5 geolocation.
                     if (navigator.geolocation) {
@@ -225,9 +182,9 @@
                     var imageFootball = 'resources/images/ball.png';
                     var imageBasketball = 'resources/images/basketballSm.png';
                     var imageVoleyball = 'resources/images/voleyballSm.png';
-                    var infowindow;
 
 
+                    var  footInfowindow;
 
                     // Add some markers to the map.
                     // Note: The code uses the JavaScript Array.prototype.map() method to
@@ -239,13 +196,17 @@
                             icon: imageFootball
                         });
 
-                        var infowindow = new google.maps.InfoWindow({
-                            content: getInfoWindowContent(i)
+                         var footInfowindow = new google.maps.InfoWindow({
+                            content: getFootWindowContent(footInfo, i)
                         });
 
                         marker.addListener('click', function() {
-                            infowindow.open(map, marker);
+                            footInfowindow.open(map, marker);
                         });
+
+                         map.addListener('click', function(){
+                             footInfowindow.close();
+                         });
                         return marker;
                     });
 
@@ -256,13 +217,17 @@
                             icon: imageBasketball
                         });
 
-                        infowindow = new google.maps.InfoWindow({
-                            content: contentString
+                         var basketInfowindow = new google.maps.InfoWindow({
+                            content: getBasketWindowContent(basketInfo, i)
                         });
 
                         bmarker.addListener('click', function() {
-                            infowindow.open(map, bmarker);
+                            basketInfowindow.open(map, bmarker);
                         });
+
+                         map.addListener('click', function(){
+                             basketInfowindow.close();
+                         });
                         return bmarker;
                     });
 
@@ -273,21 +238,19 @@
                             icon: imageVoleyball
                         });
 
-                        infowindow = new google.maps.InfoWindow({
-                            content: contentString
+                        var voleyballInfowindow = new google.maps.InfoWindow({
+                            content: getVoleyballWindowContent(voleyballInfo ,i)
                         });
 
                         vmarker.addListener('click', function() {
-                            infowindow.open(map, vmarker);
+                            voleyballInfowindow.open(map, vmarker);
                         });
+                         map.addListener('click', function(){
+                             voleyballInfowindow.close();
+                         });
                         return vmarker;
                     });
                     var markers = footMarkers.concat(basketMarkers, voleyMarkers);
-
-
-                    map.addListener('click', function(){
-                        infowindow.close();
-                    });
 
 
                     // Add a marker clusterer to manage the markers.
@@ -299,17 +262,12 @@
                         var infoWindow = new google.maps.InfoWindow({map: map});
                         infoWindow.setPosition(pos);
                         infoWindow.setContent(browserHasGeolocation ?
-                            'Нажмите выбрать город' :
+                            'Используйте поле ввода для посика на карте Google' :
                             'Error: Your browser doesn\'t support geolocation.');
                     }
                 }
-             /*   var footLocations = [
-                    {lat: 55.747747, lng: 48.738082},
-                    {lat: 55.749153, lng:  48.739596}
-                ]*/
-                var footLocations = ${footLocation};
-                var basketLocation = ${basketLocation};
-                var voleyLocation = ${voleyLocation};
+
+
 
                 $(function() {
                     $('#football').click(function(event) {

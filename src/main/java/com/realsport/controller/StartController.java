@@ -7,11 +7,13 @@ import com.realsport.model.entityDao.pojo.Playfootball;
 import com.realsport.model.entityDao.pojo.Voleyball;
 import com.realsport.model.service.PlaygroundService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,43 +23,100 @@ import java.util.List;
  */
 @Controller
 public class StartController {
+
+    private List<Playfootball> playfootballList;
+    private List<Voleyball> voleyballList;
+    private List<Basketball> basketballList;
+
+    public static  final String FOOTBALL = "foot";
+    public static  final String BASKETBALL = "basket";
+    public static  final String VOLEYBALL = "voley";
+
     @Autowired
     private PlaygroundService playgroundService;
 
-    @Autowired
-    private HttpSession httpSession;
-
-    @RequestMapping(value = "/start")
-    public String onStart(){
-        return "start";
-    }
 
     @RequestMapping(value = "/maps")
     public String onMap(Model model){
-        List<Playfootball> playfootballList = null;
-        List<Voleyball> voleyballList = null;
-        List<Basketball> basketballList = null;
+
         try {
-            playfootballList = playgroundService.getFootballPlayground();
             voleyballList = playgroundService.getVoleyballPlayground();
+            playfootballList = playgroundService.getFootballPlayground();
             basketballList = playgroundService.getBasketballPlayground();
+
             ArrayList<String> footLocationList = getFootPlayground(playfootballList);
             ArrayList<String> basketLocationList = getBasketPlayground(basketballList);
             ArrayList<String> voleyLocationList = getVoleyPlayground(voleyballList);
 
             ArrayList<String> footInfoList = getFootInfoList(playfootballList);
+            ArrayList<String> basketInfoList = getBasketInfoList(basketballList);
+            ArrayList<String> voleyballInfoList = getVoleyballInfoList(voleyballList);
 
-            model.addAttribute("count", playfootballList.size());
             model.addAttribute("footLocation", footLocationList);
             model.addAttribute("basketLocation", basketLocationList);
             model.addAttribute("voleyLocation", voleyLocationList);
+
             model.addAttribute("footInfo", footInfoList);
+            model.addAttribute("basketInfo", basketInfoList);
+            model.addAttribute("voleyballInfo", voleyballInfoList);
         } catch (DataBaseException e) {
             e.printStackTrace();
         }
 
         return "maps";
     }
+
+    @RequestMapping("/images/{type}/{id}")
+    public @ResponseBody byte[] getImage(@PathVariable String type, @PathVariable String id) {
+        byte[] bytes = null;
+        if(type.equals(FOOTBALL)) {
+            bytes = playfootballList.get(Integer.parseInt(id)).getImage();
+        } else if(type.equals(BASKETBALL)) {
+            bytes = basketballList.get(Integer.parseInt(id)).getImage();
+        } else if(type.equals(VOLEYBALL)) {
+            bytes = voleyballList.get(Integer.parseInt(id)).getImage();
+        }
+
+        return bytes;
+    }
+
+
+    private static ArrayList<String> getVoleyballInfoList(List<Voleyball> voleyballList) {
+        HashMap<String, Object> map = new HashMap<>();
+        Gson gson = new Gson();
+        ArrayList<String> mapArrayList= new ArrayList<>();
+        for (Voleyball p : voleyballList) {
+            map.put("namePlayground", p.getName());
+            map.put("image", p.getImage());
+            map.put("info", p.getInfo());
+            map.put("street", p.getStreet());
+            map.put("house", p.getHouse());
+            map.put("link", p.getLinks());
+            String json = gson.toJson(map);
+            mapArrayList.add(json);
+
+        }
+        return mapArrayList;
+    }
+
+    private static ArrayList<String> getBasketInfoList(List<Basketball> basketballList) {
+        HashMap<String, Object> map = new HashMap<>();
+        Gson gson = new Gson();
+        ArrayList<String> mapArrayList= new ArrayList<>();
+        for (Basketball p : basketballList){
+            map.put("namePlayground", p.getName());
+            map.put("image", p.getImage());
+            map.put("info", p.getInfo());
+            map.put("street", p.getStreet());
+            map.put("house", p.getHouse());
+            map.put("link", p.getLinks());
+            String json = gson.toJson(map);
+            mapArrayList.add(json);
+        }
+
+        return mapArrayList;
+    }
+
 
     private static ArrayList<String> getFootInfoList(List<Playfootball> playfootballList) {
         HashMap<String, Object> map = new HashMap<>();
@@ -72,10 +131,7 @@ public class StartController {
             map.put("link", p.getLinks());
             String json = gson.toJson(map);
             mapArrayList.add(json);
-            System.out.println("Link" + p.getLinks());
         }
-
-        System.out.println(mapArrayList);
         return mapArrayList;
     }
 
@@ -90,7 +146,6 @@ public class StartController {
             String json = gson.toJson(map);
             mapArrayList.add(json);
         }
-        System.out.println("Foot"+mapArrayList);
         return mapArrayList;
     }
 
@@ -104,7 +159,6 @@ public class StartController {
             String json = gson.toJson(map);
             mapArrayList.add(json);
         }
-        System.out.println("Basket" + mapArrayList);
         return mapArrayList;
     }
 
@@ -118,7 +172,6 @@ public class StartController {
             String json = gson.toJson(map);
             mapArrayList.add(json);
         }
-        System.out.println("Voley" + mapArrayList);
         return mapArrayList;
     }
 

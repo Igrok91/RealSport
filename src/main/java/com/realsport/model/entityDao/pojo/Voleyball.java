@@ -1,15 +1,12 @@
-package com.realsport.model.entityDao.entityJPA;
+package com.realsport.model.entityDao.pojo;
 
-import javax.persistence.*;
 import java.util.Arrays;
 
 /**
- * Created by IgorR on 26.06.2017.
+ * Created by IgorR on 25.06.2017.
  */
-@Entity
-@Table(name = "basketball", schema = "sportmap", catalog = "")
-public class BasketballEntity {
-    private int idbasketball;
+public class Voleyball {
+    private int idvoleyball;
     private String name;
     private String latitude;
     private String longitude;
@@ -26,18 +23,14 @@ public class BasketballEntity {
     private Byte school;
     private String institutions;
 
-    @Id
-    @Column(name = "idbasketball", nullable = false)
-    public int getIdbasketball() {
-        return idbasketball;
+    public int getIdvoleyball() {
+        return idvoleyball;
     }
 
-    public void setIdbasketball(int idbasketball) {
-        this.idbasketball = idbasketball;
+    public void setIdvoleyball(int idvoleyball) {
+        this.idvoleyball = idvoleyball;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false, length = 145)
     public String getName() {
         return name;
     }
@@ -46,8 +39,6 @@ public class BasketballEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "latitude", nullable = false, length = 45)
     public String getLatitude() {
         return latitude;
     }
@@ -56,8 +47,6 @@ public class BasketballEntity {
         this.latitude = latitude;
     }
 
-    @Basic
-    @Column(name = "longitude", nullable = false, length = 45)
     public String getLongitude() {
         return longitude;
     }
@@ -66,8 +55,6 @@ public class BasketballEntity {
         this.longitude = longitude;
     }
 
-    @Basic
-    @Column(name = "links", nullable = false, length = 90)
     public String getLinks() {
         return links;
     }
@@ -76,8 +63,6 @@ public class BasketballEntity {
         this.links = links;
     }
 
-    @Basic
-    @Column(name = "сreator", nullable = false, length = 45)
     public String getСreator() {
         return сreator;
     }
@@ -86,8 +71,6 @@ public class BasketballEntity {
         this.сreator = сreator;
     }
 
-    @Basic
-    @Column(name = "sity", nullable = false, length = 45)
     public String getSity() {
         return sity;
     }
@@ -96,8 +79,6 @@ public class BasketballEntity {
         this.sity = sity;
     }
 
-    @Basic
-    @Column(name = "street", nullable = false, length = 45)
     public String getStreet() {
         return street;
     }
@@ -106,8 +87,6 @@ public class BasketballEntity {
         this.street = street;
     }
 
-    @Basic
-    @Column(name = "house", nullable = true, length = 45)
     public String getHouse() {
         return house;
     }
@@ -116,8 +95,6 @@ public class BasketballEntity {
         this.house = house;
     }
 
-    @Basic
-    @Column(name = "image", nullable = true)
     public byte[] getImage() {
         return image;
     }
@@ -126,8 +103,6 @@ public class BasketballEntity {
         this.image = image;
     }
 
-    @Basic
-    @Column(name = "subject", nullable = true, length = 45)
     public String getSubject() {
         return subject;
     }
@@ -136,8 +111,6 @@ public class BasketballEntity {
         this.subject = subject;
     }
 
-    @Basic
-    @Column(name = "info", nullable = true, length = 145)
     public String getInfo() {
         return info;
     }
@@ -146,8 +119,6 @@ public class BasketballEntity {
         this.info = info;
     }
 
-    @Basic
-    @Column(name = "size", nullable = true, length = 45)
     public String getSize() {
         return size;
     }
@@ -156,8 +127,6 @@ public class BasketballEntity {
         this.size = size;
     }
 
-    @Basic
-    @Column(name = "coating", nullable = true, length = 45)
     public String getCoating() {
         return coating;
     }
@@ -166,8 +135,6 @@ public class BasketballEntity {
         this.coating = coating;
     }
 
-    @Basic
-    @Column(name = "school", nullable = true)
     public Byte getSchool() {
         return school;
     }
@@ -176,8 +143,6 @@ public class BasketballEntity {
         this.school = school;
     }
 
-    @Basic
-    @Column(name = "institutions", nullable = true, length = 45)
     public String getInstitutions() {
         return institutions;
     }
@@ -191,31 +156,32 @@ public class BasketballEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BasketballEntity that = (BasketballEntity) o;
+        Voleyball voleyball = (Voleyball) o;
 
-        if (idbasketball != that.idbasketball) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
-        if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
-        if (links != null ? !links.equals(that.links) : that.links != null) return false;
-        if (сreator != null ? !сreator.equals(that.сreator) : that.сreator != null) return false;
-        if (sity != null ? !sity.equals(that.sity) : that.sity != null) return false;
-        if (street != null ? !street.equals(that.street) : that.street != null) return false;
-        if (house != null ? !house.equals(that.house) : that.house != null) return false;
-        if (!Arrays.equals(image, that.image)) return false;
-        if (subject != null ? !subject.equals(that.subject) : that.subject != null) return false;
-        if (info != null ? !info.equals(that.info) : that.info != null) return false;
-        if (size != null ? !size.equals(that.size) : that.size != null) return false;
-        if (coating != null ? !coating.equals(that.coating) : that.coating != null) return false;
-        if (school != null ? !school.equals(that.school) : that.school != null) return false;
-        if (institutions != null ? !institutions.equals(that.institutions) : that.institutions != null) return false;
+        if (idvoleyball != voleyball.idvoleyball) return false;
+        if (name != null ? !name.equals(voleyball.name) : voleyball.name != null) return false;
+        if (latitude != null ? !latitude.equals(voleyball.latitude) : voleyball.latitude != null) return false;
+        if (longitude != null ? !longitude.equals(voleyball.longitude) : voleyball.longitude != null) return false;
+        if (links != null ? !links.equals(voleyball.links) : voleyball.links != null) return false;
+        if (сreator != null ? !сreator.equals(voleyball.сreator) : voleyball.сreator != null) return false;
+        if (sity != null ? !sity.equals(voleyball.sity) : voleyball.sity != null) return false;
+        if (street != null ? !street.equals(voleyball.street) : voleyball.street != null) return false;
+        if (house != null ? !house.equals(voleyball.house) : voleyball.house != null) return false;
+        if (!Arrays.equals(image, voleyball.image)) return false;
+        if (subject != null ? !subject.equals(voleyball.subject) : voleyball.subject != null) return false;
+        if (info != null ? !info.equals(voleyball.info) : voleyball.info != null) return false;
+        if (size != null ? !size.equals(voleyball.size) : voleyball.size != null) return false;
+        if (coating != null ? !coating.equals(voleyball.coating) : voleyball.coating != null) return false;
+        if (school != null ? !school.equals(voleyball.school) : voleyball.school != null) return false;
+        if (institutions != null ? !institutions.equals(voleyball.institutions) : voleyball.institutions != null)
+            return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idbasketball;
+        int result = idvoleyball;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);

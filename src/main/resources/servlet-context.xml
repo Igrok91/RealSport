@@ -16,7 +16,8 @@
 <!--	<bean id = "orica" class="com.realsport.model.mapper.MapperFact" scope="prototype">
 	</bean>-->
 
-	<bean id = "productDao" class="com.realsport.model.dao.impl.PlaygroundDaoImpl" scope="prototype">
+
+	<bean id = "productDao" class="com.realsport.model.dao.impl.PlaygroundDaoImpl">
 	</bean>
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 

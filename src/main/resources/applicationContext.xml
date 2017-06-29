@@ -44,10 +44,6 @@
     <jpa:repositories base-package="com.realsport.model.repository" entity-manager-factory-ref="entityManagerFactory"
                       transaction-manager-ref="transactionManager"/>
 
-    <bean name="bcryptEncoder"
-                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <constructor-arg name="strength" value="6"/>
-    </bean>
 
 
 </beans>

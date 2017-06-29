@@ -7,9 +7,9 @@ import java.util.Arrays;
  * Created by IgorR on 26.06.2017.
  */
 @Entity
-@Table(name = "basketball", schema = "sportmap", catalog = "")
-public class BasketballEntity {
-    private int idbasketball;
+@Table(name = "playfootball", schema = "sportmap", catalog = "")
+public class PlayfootballEntity {
+    private int idplayground;
     private String name;
     private String latitude;
     private String longitude;
@@ -27,13 +27,13 @@ public class BasketballEntity {
     private String institutions;
 
     @Id
-    @Column(name = "idbasketball", nullable = false)
-    public int getIdbasketball() {
-        return idbasketball;
+    @Column(name = "idplayground", nullable = false)
+    public int getIdplayground() {
+        return idplayground;
     }
 
-    public void setIdbasketball(int idbasketball) {
-        this.idbasketball = idbasketball;
+    public void setIdplayground(int idplayground) {
+        this.idplayground = idplayground;
     }
 
     @Basic
@@ -127,7 +127,7 @@ public class BasketballEntity {
     }
 
     @Basic
-    @Column(name = "subject", nullable = true, length = 45)
+    @Column(name = "subject", nullable = false, length = 45)
     public String getSubject() {
         return subject;
     }
@@ -191,9 +191,9 @@ public class BasketballEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BasketballEntity that = (BasketballEntity) o;
+        PlayfootballEntity that = (PlayfootballEntity) o;
 
-        if (idbasketball != that.idbasketball) return false;
+        if (idplayground != that.idplayground) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (latitude != null ? !latitude.equals(that.latitude) : that.latitude != null) return false;
         if (longitude != null ? !longitude.equals(that.longitude) : that.longitude != null) return false;
@@ -215,7 +215,7 @@ public class BasketballEntity {
 
     @Override
     public int hashCode() {
-        int result = idbasketball;
+        int result = idplayground;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
         result = 31 * result + (longitude != null ? longitude.hashCode() : 0);

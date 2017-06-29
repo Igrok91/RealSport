@@ -1,9 +1,10 @@
 package com.realsport.model.entityDao.entityJPA;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 /**
- * Created by IgorR on 19.06.2017.
+ * Created by IgorR on 26.06.2017.
  */
 @Entity
 @Table(name = "voleyball", schema = "sportmap", catalog = "")
@@ -17,7 +18,7 @@ public class VoleyballEntity {
     private String sity;
     private String street;
     private String house;
-    private String image;
+    private byte[] image;
     private String subject;
     private String info;
     private String size;
@@ -26,7 +27,7 @@ public class VoleyballEntity {
     private String institutions;
 
     @Id
-    @Column(name = "idvoleyball")
+    @Column(name = "idvoleyball", nullable = false)
     public int getIdvoleyball() {
         return idvoleyball;
     }
@@ -36,7 +37,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 145)
     public String getName() {
         return name;
     }
@@ -46,7 +47,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "latitude")
+    @Column(name = "latitude", nullable = false, length = 45)
     public String getLatitude() {
         return latitude;
     }
@@ -56,7 +57,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "longitude")
+    @Column(name = "longitude", nullable = false, length = 45)
     public String getLongitude() {
         return longitude;
     }
@@ -66,7 +67,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "links")
+    @Column(name = "links", nullable = false, length = 90)
     public String getLinks() {
         return links;
     }
@@ -76,7 +77,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "сreator")
+    @Column(name = "сreator", nullable = false, length = 45)
     public String getСreator() {
         return сreator;
     }
@@ -86,7 +87,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "sity")
+    @Column(name = "sity", nullable = false, length = 45)
     public String getSity() {
         return sity;
     }
@@ -96,7 +97,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "street")
+    @Column(name = "street", nullable = false, length = 45)
     public String getStreet() {
         return street;
     }
@@ -106,7 +107,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "house")
+    @Column(name = "house", nullable = true, length = 45)
     public String getHouse() {
         return house;
     }
@@ -116,17 +117,17 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "image")
-    public String getImage() {
+    @Column(name = "image", nullable = true)
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
     @Basic
-    @Column(name = "subject")
+    @Column(name = "subject", nullable = true, length = 45)
     public String getSubject() {
         return subject;
     }
@@ -136,7 +137,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "info")
+    @Column(name = "info", nullable = true, length = 145)
     public String getInfo() {
         return info;
     }
@@ -146,7 +147,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "size")
+    @Column(name = "size", nullable = true, length = 45)
     public String getSize() {
         return size;
     }
@@ -156,7 +157,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "coating")
+    @Column(name = "coating", nullable = true, length = 45)
     public String getCoating() {
         return coating;
     }
@@ -166,7 +167,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "school")
+    @Column(name = "school", nullable = true)
     public Byte getSchool() {
         return school;
     }
@@ -176,7 +177,7 @@ public class VoleyballEntity {
     }
 
     @Basic
-    @Column(name = "institutions")
+    @Column(name = "institutions", nullable = true, length = 45)
     public String getInstitutions() {
         return institutions;
     }
@@ -201,7 +202,7 @@ public class VoleyballEntity {
         if (sity != null ? !sity.equals(that.sity) : that.sity != null) return false;
         if (street != null ? !street.equals(that.street) : that.street != null) return false;
         if (house != null ? !house.equals(that.house) : that.house != null) return false;
-        if (image != null ? !image.equals(that.image) : that.image != null) return false;
+        if (!Arrays.equals(image, that.image)) return false;
         if (subject != null ? !subject.equals(that.subject) : that.subject != null) return false;
         if (info != null ? !info.equals(that.info) : that.info != null) return false;
         if (size != null ? !size.equals(that.size) : that.size != null) return false;
@@ -223,7 +224,7 @@ public class VoleyballEntity {
         result = 31 * result + (sity != null ? sity.hashCode() : 0);
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (house != null ? house.hashCode() : 0);
-        result = 31 * result + (image != null ? image.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(image);
         result = 31 * result + (subject != null ? subject.hashCode() : 0);
         result = 31 * result + (info != null ? info.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
