@@ -3,7 +3,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'heroku'
+
 
 sourceCompatibility = 1.8
 
@@ -50,6 +50,7 @@ dependencies {
 
 }
 
+apply plugin: 'heroku'
 heroku {
     //get this from heroku
     apiKey = 'd3fb784d-cc3a-4912-ab46-3de32f56be11'
