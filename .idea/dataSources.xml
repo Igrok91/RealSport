@@ -15,5 +15,30 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="d5u7d1u62ntkc9@ec2-54-247-120-169.eu-west-1.compute.amazonaws.com" uuid="d4b20b96-44f8-463b-ac61-7aa8c056d125">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-247-120-169.eu-west-1.compute.amazonaws.com:5432/d5u7d1u62ntkc9</jdbc-url>
+      <driver-properties>
+        <property name="ssl" value="true" />
+        <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
+      </driver-properties>
+    </data-source>
+    <data-source source="LOCAL" name="heroku_a75530ab6d38c57@eu-cdbr-west-01.cleardb.com" uuid="5625e48f-59bc-49b7-8ac7-a67f6366836f">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://eu-cdbr-west-01.cleardb.com:3306/heroku_a75530ab6d38c57?reconnect=true</jdbc-url>
+      <driver-properties>
+        <property name="autoReconnect" value="true" />
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+        <property name="requireSSL" value="true" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>
